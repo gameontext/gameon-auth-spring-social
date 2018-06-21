@@ -36,7 +36,7 @@ Main compatibility issue with existing Auth module is provision for a Dummy Auth
 
 - Dummy Auth support!!
 - ~~Update yaml's to pull the social creds from env vars.~~
-- ~~Have `/token` endpoint controller create and sign a jwt as the old GameOn Auth used to. ~~
+- ~~Have `/token` endpoint controller create and sign a jwt as the old GameOn Auth used to.~~
 - ~~Have `/token` endpoint foward to the auth success url appending the token~~
 - Add gameon auth service compatible initial url rest handler that replies with redirects to the new initial urls?
 - ~~Dockerise the whole thing using Game On Auth as a template.~~
