@@ -30,15 +30,20 @@ GitHub and Twitter were oddly annoying re email, and needed invocation of new en
 appropriate Template has to be instantiated, and used to get the reply. Corresponding Java bindings
 for the reply JSON are in the model package. 
 
+Main compatibility issue with existing Auth module is provision for a Dummy Auth login type for local usage when no real providers are defined. It looks a little like in Spring-Social we may have to use Spring to stand up a local OAuth2 Provider with fixed credentials, and point a standard oauth2 client toward it. A little more heavyweight than the old Dummy, but not too tricky using Spring.(And if we use Profiles to restrict that, it could properly become ONLY available when running locally).
+
 *TODO*
 
-- Update yaml's to pull the social creds from env vars.
-- Have `/token` endpoint controller create and sign a jwt as the old GameOn Auth used to. 
-- Have `/token` endpoint foward to the auth success url appending the token
+- Dummy Auth support!!
+- ~~Update yaml's to pull the social creds from env vars.~~
+- ~~Have `/token` endpoint controller create and sign a jwt as the old GameOn Auth used to. ~~
+- ~~Have `/token` endpoint foward to the auth success url appending the token~~
 - Add gameon auth service compatible initial url rest handler that replies with redirects to the new initial urls?
-- Dockerise the whole thing using Game On Auth as a template.
+- ~~Dockerise the whole thing using Game On Auth as a template.~~
+- Dynamically adapt login support based on configured providers?
+- Actuators for healthcheck ?
 - Tests? Maybe?
-- Trvais build etc.
+- Travis build etc.
 
 
 
