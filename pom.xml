@@ -30,8 +30,8 @@
             <id>spring-repo</id>
             <name>Spring Repository</name>
             <url>http://repo.spring.io/release</url>
-        </repository>   
-            
+        </repository>
+
         <repository>
             <id>spring-milestone</id>
             <name>Spring Milestone Repository</name>
@@ -43,7 +43,7 @@
             <name>Spring Snapshot Repository</name>
             <url>http://repo.spring.io/snapshot</url>
         </repository>
-    </repositories>  
+    </repositories>
 
 	<dependencies>
 		<dependency>
@@ -66,7 +66,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
+
        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-config</artifactId>
-        </dependency>        
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.social</groupId>
@@ -112,13 +112,20 @@
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-twitter</artifactId>
 			<version>1.1.2.RELEASE</version>
-        </dependency>                        
+        </dependency>
 
         <!-- recommended by spring-social docs -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.3.6</version>
+        </dependency>
+
+        <!-- jwt creation -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
         </dependency>
 
 
@@ -134,7 +141,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -154,7 +161,7 @@
             <artifactId>mockito-core</artifactId>
             <version>2.8.9</version>
             <scope>test</scope>
-        </dependency>                
+        </dependency>
 
         <dependency>
             <groupId>org.hsqldb</groupId>
@@ -162,13 +169,59 @@
             <scope>runtime</scope>
         </dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.26.0</version>
+                <configuration>
+                <images>
+                    <image>
+                        <name>gameon-auth-spring-social:0.1</name>
+                        <alias>auth-spring-social</alias>
+                        <build>
+                            <from>gameontext/docker-liberty-custom</from>
+                            <healthCheck>
+                                <timeout>10s</timeout>
+                                <startPeriod>40s</startPeriod>
+                                <cmd>wget -q -O /dev/null http://localhost:9080/health</cmd>
+                            </healthCheck>
+                            <assembly>
+                                <targetDir>/</targetDir>
+                                <inline>
+                                    <files>
+                                        <file>
+                                            <source>${project.build.directory}/${project.artifactId}-${project.version}.jar</source>
+                                            <outputDirectory></outputDirectory>
+                                            <destName>app.jar</destName>
+                                        </file>
+                                        <file>
+                                            <source>auth-wlpcfg/startup.sh</source>
+                                            <outputDirectory></outputDirectory>
+                                            <destName>startup.sh</destName>
+                                        </file>
+                                    </files>
+                                </inline>
+                            </assembly>
+                        </build>
+                        <run>
+                            <env>
+                                <SERVERDIRNAME>auth</SERVERDIRNAME>
+                            </env>
+                            <cmd>
+                                <shell>/opt/startup.sh</shell>
+                            </cmd>
+                        </run>
+                    </image>
+                </images>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
