@@ -215,7 +215,7 @@
                                 <SERVERDIRNAME>auth</SERVERDIRNAME>
                             </env>
                             <cmd>
-                                <shell>/opt/startup.sh</shell>
+                                <shell>/startup.sh</shell>
                             </cmd>
                         </run>
                     </image>
