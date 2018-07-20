@@ -11,6 +11,7 @@ Initial Urls:
 - `/auth/twitter`
 - `/auth/github?scope=user:email`
 - `/auth/google?scope=profile%20email`
+- `/auth/dummy` (only active during local development)
 
 Redirect Urls: (for configuring within social apps, prefix the host/port of this app)
 - `/auth/facebook`
