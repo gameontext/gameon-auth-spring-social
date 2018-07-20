@@ -41,7 +41,10 @@ public class TokenRestController {
 	private String successUrl;
 
 	@Value("${FRONT_END_FAIL_CALLBACK}")
-	private String failureUrl;
+    private String failureUrl;
+
+    @Value("${GAMEON_MODE}")
+    private String mode;
 
 
 	public TokenRestController() {
@@ -148,7 +151,17 @@ public class TokenRestController {
 				name = goou.getName();
 				email = goou.getEmail();  //requires scope=email on the initial auth request.
 				break;
-			}
+            }
+            case "dummy" : {
+                if(mode.equalsIgnoreCase("development")){
+                    id="dummy:fish";
+                    name="fish";
+                    email="";
+                }else{
+                    throw new IllegalArgumentException("Dummy auth not allowed in production");
+                }
+                break;
+            }
 			default: {
 				throw new IllegalArgumentException("Unknown Connection Type "+type);
 			}

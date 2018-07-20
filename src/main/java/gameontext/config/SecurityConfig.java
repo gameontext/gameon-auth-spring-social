@@ -34,6 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/**")
               .authenticated()
         .and()
+              .csrf().ignoringAntMatchers("/auth/dummy/fake/**")
+        .and()
           .apply(socialConfig);
   }
 

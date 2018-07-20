@@ -1,7 +1,9 @@
 package gameontext.config;
 
+import gameontext.dummy.connect.DummyConnectionFactory;
 import gameontext.security.SecurityImplicitConnectionSignUp;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.social.UserIdSource;
@@ -18,11 +20,13 @@ import org.springframework.social.security.AuthenticationNameUserIdSource;
 @Configuration
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter {
+    @Value("${GAMEON_MODE}")
+    private String mode;
 
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
         //facebook and twitter seem to register themselves, and google, and github do not.
-        
+
         //connectionFactoryConfigurer.addConnectionFactory(new FacebookConnectionFactory(
         //    environment.getProperty("spring.social.facebook.appId"),
         //    environment.getProperty("spring.social.facebook.appSecret")));
@@ -35,11 +39,17 @@ public class SocialConfig extends SocialConfigurerAdapter {
         connectionFactoryConfigurer.addConnectionFactory(new GitHubConnectionFactory(
             environment.getProperty("spring.social.github.appId"),
             environment.getProperty("spring.social.github.appSecret")));
+
+        if(mode.equalsIgnoreCase("development")){
+            connectionFactoryConfigurer.addConnectionFactory(new DummyConnectionFactory(
+                "dummy",
+                "secret"));
+        }
   }
 
   @Override
   public UsersConnectionRepository getUsersConnectionRepository(
-      ConnectionFactoryLocator connectionFactoryLocator) {    
+      ConnectionFactoryLocator connectionFactoryLocator) {
     InMemoryUsersConnectionRepository repository = new InMemoryUsersConnectionRepository(connectionFactoryLocator);
     repository.setConnectionSignUp(new SecurityImplicitConnectionSignUp());
     return repository;
