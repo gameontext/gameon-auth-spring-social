@@ -30,11 +30,17 @@ GitHub and Twitter were oddly annoying re email, and needed invocation of new en
 appropriate Template has to be instantiated, and used to get the reply. Corresponding Java bindings
 for the reply JSON are in the model package. 
 
-Main compatibility issue with existing Auth module is provision for a Dummy Auth login type for local usage when no real providers are defined. It looks a little like in Spring-Social we may have to use Spring to stand up a local OAuth2 Provider with fixed credentials, and point a standard oauth2 client toward it. A little more heavyweight than the old Dummy, but not too tricky using Spring.(And if we use Profiles to restrict that, it could properly become ONLY available when running locally).
+*New* Dummy auth! 
+Added a daft set of endpoints that emulate a (really dumb) OAuth2 Provider =)
+- /auth/dummy/fake/auth
+- /auth/dummy/fake/token
+And added a dummy spring-social provider plugged in to use those URLs, and mapped the endpoints and provider to only do their magic when we're running in local dev mode (wooh!). 
+
+~~Main compatibility issue with existing Auth module is provision for a Dummy Auth login type for local usage when no real providers are defined. It looks a little like in Spring-Social we may have to use Spring to stand up a local OAuth2 Provider with fixed credentials, and point a standard oauth2 client toward it. A little more heavyweight than the old Dummy, but not too tricky using Spring.(And if we use Profiles to restrict that, it could properly become ONLY available when running locally).~~
 
 *TODO*
 
-- Dummy Auth support!!
+- ~~Dummy Auth support!!~~
 - ~~Update yaml's to pull the social creds from env vars.~~
 - ~~Have `/token` endpoint controller create and sign a jwt as the old GameOn Auth used to.~~
 - ~~Have `/token` endpoint foward to the auth success url appending the token~~
