@@ -3,7 +3,6 @@ package gameontext.dummy.connect;
 
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
-import org.springframework.social.google.api.Google;
 import org.springframework.social.oauth2.AccessGrant;
 
 import gameontext.dummy.api.Dummy;

@@ -12,9 +12,6 @@ public class DummyServiceProvider extends AbstractOAuth2ServiceProvider<Dummy> {
 
 	@Override
 	public Dummy getApi(String accessToken) {
-
-        System.out.println("Got accessToken "+accessToken);
-
 		return new Dummy(){
             public boolean isAuthorized(){
                 return true;
@@ -34,8 +31,6 @@ public class DummyServiceProvider extends AbstractOAuth2ServiceProvider<Dummy> {
 			public String getUserName() {
 				return "Fish";
 			}
-
-
         };
 	}
 }

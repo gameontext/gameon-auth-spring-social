@@ -1,2 +1,3 @@
 target/
+build/
 src/main/resources/application-live.properties
