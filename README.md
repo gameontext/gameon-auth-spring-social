@@ -37,7 +37,6 @@ Added a daft set of endpoints that emulate a (really dumb) OAuth2 Provider =)
 - /auth/dummy/fake/token
 And added a dummy spring-social provider plugged in to use those URLs, and mapped the endpoints and provider to only do their magic when we're running in local dev mode (wooh!). 
 
-~~Main compatibility issue with existing Auth module is provision for a Dummy Auth login type for local usage when no real providers are defined. It looks a little like in Spring-Social we may have to use Spring to stand up a local OAuth2 Provider with fixed credentials, and point a standard oauth2 client toward it. A little more heavyweight than the old Dummy, but not too tricky using Spring.(And if we use Profiles to restrict that, it could properly become ONLY available when running locally).~~
 
 *TODO*
 
