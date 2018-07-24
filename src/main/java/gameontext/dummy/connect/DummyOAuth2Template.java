@@ -11,19 +11,14 @@ import org.springframework.util.MultiValueMap;
 
 public class DummyOAuth2Template extends OAuth2Template {
 
-    //TODO: this might work as just localhost and port..
-    private static final String authUrl = System.getenv("FRONT_END_AUTH_URL");
-    private static final String authUri = authUrl+"/dummy/fake/auth";
-    private static final String tokenUri = authUrl+"/dummy/fake/token";
-
 	private String redirectUri;
 
-	public DummyOAuth2Template(String clientId, String clientSecret) {
-		this(clientId, clientSecret, null);
+	public DummyOAuth2Template(String clientId, String clientSecret, String authUrl) {
+		this(clientId, clientSecret, null, authUrl);
 	}
 
-	public DummyOAuth2Template(String clientId, String clientSecret,String redirectUri) {
-		super(clientId, clientSecret, authUri, tokenUri);
+	public DummyOAuth2Template(String clientId, String clientSecret, String redirectUri, String authUrl) {
+		super(clientId, clientSecret, authUrl+"/dummy/fake/auth", authUrl+"/dummy/fake/token");
 		setUseParametersForClientAuthentication(true);
 		this.redirectUri = redirectUri;
 	}

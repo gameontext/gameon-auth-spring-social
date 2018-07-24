@@ -37,13 +37,13 @@ public class TokenRestController {
 	@Inject
 	private JWTSigner tokenSigner;
 
-	@Value("${FRONT_END_SUCCESS_CALLBACK}")
+	@Value("${frontend.success.callback}")
 	private String successUrl;
 
-	@Value("${FRONT_END_FAIL_CALLBACK}")
+	@Value("${frontend.failure.callback}")
     private String failureUrl;
 
-    @Value("${GAMEON_MODE}")
+    @Value("${gameon.mode}")
     private String mode;
 
 

@@ -6,8 +6,8 @@ import gameontext.dummy.api.Dummy;
 
 public class DummyServiceProvider extends AbstractOAuth2ServiceProvider<Dummy> {
 
-    DummyServiceProvider(final String clientId, final String clientSecret){
-        super(new DummyOAuth2Template(clientId, clientSecret));
+    DummyServiceProvider(final String clientId, final String clientSecret, final String authUrl){
+        super(new DummyOAuth2Template(clientId, clientSecret, authUrl));
     }
 
 	@Override

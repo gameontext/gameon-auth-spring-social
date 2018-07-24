@@ -24,6 +24,9 @@ springBoot {
     buildInfo();
 }
 
+bootRun {
+  environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "local"
+}
 
 group = 'org.gameontext'
 version = '0.0.1-SNAPSHOT'

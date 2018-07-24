@@ -20,8 +20,11 @@ import org.springframework.social.security.AuthenticationNameUserIdSource;
 @Configuration
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter {
-    @Value("${GAMEON_MODE}")
+    @Value("${gameon.mode}")
     private String mode;
+
+    @Value("${frontend.auth.url}")
+    private String authUrl;
 
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
@@ -43,7 +46,8 @@ public class SocialConfig extends SocialConfigurerAdapter {
         if(mode.equalsIgnoreCase("development")){
             connectionFactoryConfigurer.addConnectionFactory(new DummyConnectionFactory(
                 "dummy",
-                "secret"));
+                "secret",
+                authUrl));
         }
   }
 

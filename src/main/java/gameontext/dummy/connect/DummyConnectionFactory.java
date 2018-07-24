@@ -9,8 +9,8 @@ import gameontext.dummy.api.Dummy;
 
 public class DummyConnectionFactory extends OAuth2ConnectionFactory<Dummy> {
 
-  public DummyConnectionFactory(final String clientId, final String clientSecret) {
-    super("dummy", new DummyServiceProvider(clientId, clientSecret),
+  public DummyConnectionFactory(final String clientId, final String clientSecret, final String authUrl) {
+    super("dummy", new DummyServiceProvider(clientId, clientSecret, authUrl),
       new DummyAdapter());
   }
 
