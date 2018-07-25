@@ -43,7 +43,7 @@ public class DummyOAuthEndpoints {
     @GetMapping(value="/auth/dummy/fake/auth")
     public ResponseEntity<Object> auth(@RequestParam Map<String,String> allRequestParams, HttpServletResponse httpServletResponse)
       throws IOException, URISyntaxException{
-        System.out.println(allRequestParams);
+        System.out.println("DummyAuth: auth GET Invoked params:: "+allRequestParams);
         String redirectUrl = allRequestParams.get("redirect_uri");
 
         if(redirectUrl==null){
@@ -56,15 +56,18 @@ public class DummyOAuthEndpoints {
         URI redirect = new URI(redirectUrl);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(redirect);
+        System.out.println("DummyAuth: Returning redirect to "+redirectUrl);
         return new ResponseEntity<>(headers,HttpStatus.FOUND);
 
     }
 
     @RequestMapping(value="/auth/dummy/fake/token", method = RequestMethod.POST, produces = "application/json",  consumes = "application/x-www-form-urlencoded")
     public @ResponseBody TokenReply token(@RequestParam Map<String,String> allRequestParams) {
+        System.out.println("DummyAuth: token POST Invoked");
         TokenReply t = new TokenReply();
         t.setAccess_Token("FISH_TOKEN");
         t.setToken_Type("bearer");
+        System.out.println("DummyAuth: Returning token response");
         return t;
     }
 

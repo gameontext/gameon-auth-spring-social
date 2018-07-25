@@ -82,7 +82,7 @@ public class TokenRestController {
 		return email;
 	}
 
-	@RequestMapping(value = "/token", method = RequestMethod.GET)
+	@RequestMapping(value = "/auth/token", method = RequestMethod.GET)
 	public ResponseEntity<String> ozzy(@AuthenticationPrincipal SocialAuthenticationToken p)
 	throws Exception{
 		Connection<?> connection = p.getConnection();

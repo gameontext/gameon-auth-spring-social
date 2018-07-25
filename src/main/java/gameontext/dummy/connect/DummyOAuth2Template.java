@@ -18,7 +18,7 @@ public class DummyOAuth2Template extends OAuth2Template {
 	}
 
 	public DummyOAuth2Template(String clientId, String clientSecret, String redirectUri, String authUrl) {
-		super(clientId, clientSecret, authUrl+"/dummy/fake/auth", authUrl+"/dummy/fake/token");
+		super(clientId, clientSecret, authUrl+"/dummy/fake/auth", "http://127.0.0.1:9080/auth/dummy/fake/token");
 		setUseParametersForClientAuthentication(true);
 		this.redirectUri = redirectUri;
 	}

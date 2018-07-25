@@ -1,5 +1,6 @@
 package gameontext.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import gameontext.security.SimpleSocialUsersDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,9 @@ import org.springframework.social.security.SpringSocialConfigurer;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  @Value("${frontend.auth.url}")
+  private String baseAuthUrl;
+
   @Override
   public void configure(WebSecurity web) throws Exception {
     web
@@ -25,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 
     SpringSocialConfigurer socialConfig = new SpringSocialConfigurer();
-    socialConfig.postLoginUrl("/token");
+    System.out.println("Token Redirect Url : "+baseAuthUrl+"/token");
+    socialConfig.postLoginUrl(baseAuthUrl+"/token");
 
     http
           .authorizeRequests()
