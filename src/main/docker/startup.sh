@@ -59,8 +59,12 @@ else
   # No cert.pem? we're running local/debug, and need to create one.
   echo "-creating dir for cert"
   mkdir -p /etc/cert
-  echo "-generating local cert for test/debug."
-  keytool -genkey -storepass testOnlyKeystore -keypass testOnlyKeystore -keyalg RSA -alias default -keystore /etc/cert/key.jks -dname CN=rsssl,OU=unknown,O=unknown,L=unknown,ST=unknown,C=CA
+  if [ -f /etc/cert/key.jks ]; then
+    echo "-using supplied keystore"
+  else
+    echo "-generating local cert for test/debug."
+    keytool -genkey -storepass testOnlyKeystore -keypass testOnlyKeystore -keyalg RSA -alias default -keystore /etc/cert/key.jks -dname CN=rsssl,OU=unknown,O=unknown,L=unknown,ST=unknown,C=CA
+  fi
 fi
 
 java -Djava.security.egd=file:/dev/./urandom -jar /app.jar
