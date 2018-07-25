@@ -96,6 +96,7 @@ public class JWTSigner {
 
         // Set the subject as the id
         onwardsClaims.setSubject(id);
+        onwardsClaims.put("id",id);
         onwardsClaims.put("name", name);
         onwardsClaims.put("email", email);
 
@@ -103,8 +104,7 @@ public class JWTSigner {
         onwardsClaims.setAudience("client");
 
         // we set creation time to 24hrs ago, to avoid timezone issues in the
-        // browser
-        // verification of the jwt.
+        // browser verification of the jwt.
         Calendar calendar1 = Calendar.getInstance();
         calendar1.add(Calendar.HOUR, -24);
         onwardsClaims.setIssuedAt(calendar1.getTime());
