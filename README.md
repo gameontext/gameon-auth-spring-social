@@ -31,9 +31,9 @@ Old-Auth Compat urls:
 
 ## Flow:
 
-Browser goes to appropriate initial url, gets bounced to remote service to sign in, then back to redirect url, which reads tokens etc, and forwards browser to `/token` endpoint.
+Browser goes to appropriate initial url, gets bounced to remote service to sign in, then back to redirect url, which reads tokens etc, and forwards browser to `/auth/token` endpoint.
 
-`/token` endpoint is a RestController, that uses spring social to obtain the connection and then uses that to pull unique Id, name, and email.
+`/auth/token` endpoint is a RestController, that uses spring social to obtain the connection and then uses that to pull unique Id, name, and email.
 
 Where possible this uses standard spring social stuff to do its job. This works as expected for Facebook, and Google, and is pretty straight forward.
 
@@ -48,6 +48,8 @@ Added a daft set of endpoints that emulate a (really dumb) OAuth2 Provider =)
 - `/auth/dummy/fake/token`
 
 And added a dummy spring-social provider plugged in to use those URLs, and mapped the endpoints and provider to only do their magic when we're running in local dev mode (wooh!).
+
+*Note:* All urls need to start /auth to emulate the Old-Auth context root approach, otherwise GameOn Proxy would need updating to know how to route traffic to this service. As this is currently intended to be a drop in replacement, to enable A/B testing, canary deployment etc, it was better to keep urls compatible with Old-Auth. This also includes acutators which are moved to `/auth` in this project, eg `/auth/health` )
 
 ## Testing this module in/out of Gameon.
 
@@ -84,6 +86,8 @@ Build code.
 Build docker image
 
 `docker build -t gameontext/gameon-auth-spring-social:latest build/docker`
+
+(Eg, build context root for docker is `build/docker` AFTER a build has been completed, this differs from `auth-wlpcfg` in Old-Auth)
 
 Replace running auth with new auth.. (assuming this project is present as submodule of gameon root repo.)
 
