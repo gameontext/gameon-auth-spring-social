@@ -1,3 +1,14 @@
+.*.swp
+.gradle
+.classpath
+.project
+.settings
+.DS_Store
+.vscode
+.sts4-cache
+/bin
+/build
+/local.properties
 target/
 build/
 src/main/resources/application-live.properties
